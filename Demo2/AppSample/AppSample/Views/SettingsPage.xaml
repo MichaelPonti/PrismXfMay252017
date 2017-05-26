@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:conv="clr-namespace:AppSample.Converters"
+	Title="SETTINGS"
+	x:Class="AppSample.Views.SettingsPage">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<conv:InverseBoolConverter x:Key="inverseBoolConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+ 
+	<StackLayout Orientation="Vertical">
+		<Label Text="Setting 1" />
+		<Entry Text="{Binding Setting1.Value, Mode=TwoWay}" />
+
+		<Label Text="Setting 2" />
+		<Entry Text="{Binding Setting2.Value, Mode=TwoWay}" />
+
+		<Button Text="Save" Command="{Binding CommandSave}" />
+	</StackLayout>
+</ContentPage>

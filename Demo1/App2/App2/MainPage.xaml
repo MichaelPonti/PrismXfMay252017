@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:App2"
+             x:Class="App2.MainPage">
+
+	<StackLayout Orientation="Vertical" Margin="50,50" VerticalOptions="Center">
+		<Label Text="please enter name:" HorizontalOptions="Center" />
+		<Entry Text="{Binding Name, Mode=TwoWay}" />
+		<Button Text="HELLO" Command="{Binding CommandHello}" Margin="30,50" />
+		<Entry Text="{Binding Result,Mode=TwoWay}" />
+	</StackLayout>
+
+</ContentPage>

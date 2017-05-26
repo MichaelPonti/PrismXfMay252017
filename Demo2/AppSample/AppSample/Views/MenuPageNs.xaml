@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:converters="clr-namespace:AppSample.Converters"
+	xmlns:b="clr-namespace:AppSample.Behaviors;assembly=AppSample"
+	Title="menu"
+	xmlns:helpers="clr-namespace:AppSample.Helpers"
+	x:Class="AppSample.Views.MenuPageNs">
+
+
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+
+			<Style x:Key="ProfileNameLabelStyle"
+				   TargetType="{x:Type Label}"
+				   BasedOn="{StaticResource MontserratRegularLabelStyle}">
+				<Setter Property="TextColor"
+					Value="{StaticResource WhiteColor}" />
+				<Setter Property="FontSize"
+					Value="{StaticResource BigSize}" />
+			</Style>
+
+			<Style x:Key="UwpProfileNameLabelStyle"
+				 TargetType="{x:Type Label}"
+				 BasedOn="{StaticResource MontserratRegularLabelStyle}">
+				<Setter Property="TextColor"
+					Value="{StaticResource BlueColor}" />
+				<Setter Property="FontSize"
+					Value="{StaticResource MediumSize}" />
+			</Style>
+
+			<Style x:Key="MenuItemLabelStyle"
+				   TargetType="{x:Type Label}"
+				   BasedOn="{StaticResource MontserratRegularLabelStyle}">
+				<Setter Property="TextColor"
+						Value="{StaticResource WhiteColor}" />
+				<Setter Property="FontSize"
+						Value="{StaticResource MediumSize}" />
+				<Setter Property="Opacity"
+						Value="0.87" />
+			</Style>
+
+			<Style x:Key="UwpMenuItemLabelStyle"
+				   TargetType="{x:Type Label}"
+				   BasedOn="{StaticResource MontserratRegularLabelStyle}">
+				<Setter Property="TextColor"
+						Value="{StaticResource BlueColor}" />
+				<Setter Property="FontSize"
+						Value="{StaticResource MediumSize}" />
+				<Setter Property="Opacity"
+						Value="0.87" />
+			</Style>
+
+			<converters:MenuItemTypeConverter x:Key="menuItemConverter" />
+
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+			<Label Text="COOL!" Margin="10,10" FontSize="Large" FontAttributes="Bold" />
+			<Grid Grid.Row="1" Opacity="0.2" HeightRequest="1" />
+
+			<ListView Grid.Row="2" x:Name="_lvItems" CachingStrategy="RecycleElement" 
+					  ItemsSource="{Binding MenuItems, Mode=OneWay}" 
+					  b:ItemTappedCommandListView.ItemTappedCommand="{Binding CommandMenuItemSelected}"
+					  SeparatorVisibility="None"
+					  BackgroundColor="Transparent"
+					  VerticalOptions="StartAndExpand">
+
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Orientation="Horizontal">
+
+								<Image
+									Source="{Binding MenuItemType, Converter={StaticResource menuItemConverter}}"
+									Aspect="AspectFit"
+									WidthRequest="22"
+									HeightRequest="22"
+									HorizontalOptions="Center"
+									VerticalOptions="Center" />
+
+								<Label Text="{Binding Title}"
+									   HorizontalOptions="Center"
+									   VerticalOptions="Center">
+								</Label>
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+
+			</ListView>
+
+
+			<Grid Grid.Row="3" Opacity="0.2" HeightRequest="1" />
+			<Grid Grid.Row="4" HeightRequest="1" />
+		</Grid>
+	</Grid>
+
+
+</ContentPage>

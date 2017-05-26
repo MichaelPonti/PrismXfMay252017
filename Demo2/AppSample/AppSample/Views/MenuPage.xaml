@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:converters="clr-namespace:AppSample.Converters"
+	xmlns:b="clr-namespace:AppSample.Behaviors;assembly=AppSample"
+	Title="menu"
+	BackgroundColor="{StaticResource BlueColor}"
+	xmlns:helpers="clr-namespace:AppSample.Helpers"
+	x:Class="AppSample.Views.MenuPage">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+
+			<Style x:Key="ProfileNameLabelStyle"
+				   TargetType="{x:Type Label}"
+				   BasedOn="{StaticResource MontserratRegularLabelStyle}">
+				<Setter Property="TextColor"
+					Value="{StaticResource WhiteColor}" />
+				<Setter Property="FontSize"
+					Value="{StaticResource BigSize}" />
+			</Style>
+
+			<Style x:Key="UwpProfileNameLabelStyle"
+				 TargetType="{x:Type Label}"
+				 BasedOn="{StaticResource MontserratRegularLabelStyle}">
+				<Setter Property="TextColor"
+					Value="{StaticResource BlueColor}" />
+				<Setter Property="FontSize"
+					Value="{StaticResource MediumSize}" />
+			</Style>
+
+			<Style x:Key="MenuItemLabelStyle"
+				   TargetType="{x:Type Label}"
+				   BasedOn="{StaticResource MontserratRegularLabelStyle}">
+				<Setter Property="TextColor"
+						Value="{StaticResource WhiteColor}" />
+				<Setter Property="FontSize"
+						Value="{StaticResource MediumSize}" />
+				<Setter Property="Opacity"
+						Value="0.87" />
+			</Style>
+
+			<Style x:Key="UwpMenuItemLabelStyle"
+				   TargetType="{x:Type Label}"
+				   BasedOn="{StaticResource MontserratRegularLabelStyle}">
+				<Setter Property="TextColor"
+						Value="{StaticResource BlueColor}" />
+				<Setter Property="FontSize"
+						Value="{StaticResource MediumSize}" />
+				<Setter Property="Opacity"
+						Value="0.87" />
+			</Style>
+
+			<converters:MenuItemTypeConverter x:Key="menuItemConverter" />
+
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+
+
+	<Grid>
+		<Grid.BackgroundColor>
+			<helpers:OnCustomPlatform x:TypeArguments="Color"
+									  Android="{StaticResource BlueColor}"
+									  iOS="{StaticResource BlueColor}"
+									  Windows="{StaticResource BlueColor}"
+									  WinPhone="{StaticResource BlueColor}" />
+		</Grid.BackgroundColor>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Grid.Margin>
+			<helpers:OnCustomPlatform x:TypeArguments="Thickness"
+									  Android="0,40,0,0"
+									  iOS="0,40,0,0"
+									  WinPhone="0,0,0,48"
+									  Windows="0,0,0,48" />
+		</Grid.Margin>
+
+		<Grid Grid.Row="0">
+			<Grid.BackgroundColor>
+				<helpers:OnCustomPlatform x:TypeArguments="Color"
+									  Android="{StaticResource BlueColor}"
+									  iOS="{StaticResource BlueColor}"
+									  Windows="{StaticResource BlueColor}"
+									  WinPhone="{StaticResource BlueColor}" />
+			</Grid.BackgroundColor>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+			<Image Grid.Row="0" Grid.RowSpan="5" Source="{helpers:ImageResource AppSample.Resources.menu_bg.png}" VerticalOptions="End" HorizontalOptions="End">
+			</Image>
+
+			<Label Text="COOL!" Margin="10,10" TextColor="{StaticResource WhiteColor}" FontSize="Large" FontAttributes="Bold" />
+			<Grid Grid.Row="1" BackgroundColor="{StaticResource WhiteColor}" Opacity="0.2" HeightRequest="1" />
+
+			<ListView Grid.Row="2" x:Name="_lvItems" CachingStrategy="RecycleElement" 
+					  ItemsSource="{Binding MenuItems, Mode=OneWay}" 
+					  b:ItemTappedCommandListView.ItemTappedCommand="{Binding CommandMenuItemSelected}"
+					  SeparatorVisibility="None"
+					  BackgroundColor="Transparent"
+					  VerticalOptions="StartAndExpand">
+
+				<ListView.Margin>
+					<helpers:OnCustomPlatform x:TypeArguments="Thickness"
+											  Android="0,5,0,0"
+											  iOS="0,5,0,0"
+											  WinPhone="0,5,0,0"
+											  Windows="0" />
+				</ListView.Margin>
+
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Orientation="Horizontal">
+								<StackLayout.Margin>
+									<helpers:OnCustomPlatform
+										x:TypeArguments="Thickness"
+										Android="38, 9, 0, 0"
+										iOS="38,9,0,0"
+										WinPhone="14,9,0,14"
+										Windows="14,14,0,14" />
+								</StackLayout.Margin>
+
+								<Image
+									Source="{Binding MenuItemType, Converter={StaticResource menuItemConverter}}"
+									Aspect="AspectFit"
+									WidthRequest="22"
+									HeightRequest="22"
+									HorizontalOptions="Center"
+									VerticalOptions="Center" />
+
+								<Label Text="{Binding Title}"
+									   Style="{StaticResource MenuItemLabelStyle}"
+									   HorizontalOptions="Center"
+									   VerticalOptions="Center">
+									<Label.Margin>
+										<helpers:OnCustomPlatform x:TypeArguments="Thickness"
+																  Android="5,0,0,0"
+																  iOS="5,0,0,0"
+																  WinPhone="5,0,0,0"
+																  Windows="23,0,0,0" />
+									</Label.Margin>
+								</Label>
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+				
+			</ListView>
+			
+			
+			<Grid Grid.Row="3" BackgroundColor="{StaticResource WhiteColor}" Opacity="0.2" HeightRequest="1" />
+			<Grid Grid.Row="4" HeightRequest="1" />
+		</Grid>
+	</Grid>
+	
+	
+	
+	
+
+</ContentPage>
